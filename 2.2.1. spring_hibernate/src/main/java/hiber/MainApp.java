@@ -16,14 +16,14 @@ public class MainApp {
             new AnnotationConfigApplicationContext(AppConfig.class);
 
       CarService carService = context.getBean(CarService.class);
-
       Car car = new Car("white", 55);
       Car car1 = new Car("whiteAndBlack", 535);
       carService.addCar(car);
       carService.addCar(car1);
 
+
       UserService userService = context.getBean(UserService.class);
-      userService.add(new User("User1", "Lastname1", "user1@mail.ru",car));
+      userService.add(new User("User1", "Lastname1", "user1@mail.ru", car));
       userService.add(new User("User2", "Lastname2", "user2@mail.ru", car1));
       userService.add(new User("User3", "Lastname3", "user3@mail.ru", car));
       userService.add(new User("User4", "Lastname4", "user4@mail.ru", car));
