@@ -23,14 +23,10 @@ public class MainApp {
 
 
       UserService userService = context.getBean(UserService.class);
-      userService.add(new User("User1", "Lastname1", "user1@mail.ru", car));
-      userService.add(new User("User2", "Lastname2", "user2@mail.ru", car1));
-      userService.add(new User("User3", "Lastname3", "user3@mail.ru", car));
-      userService.add(new User("User4", "Lastname4", "user4@mail.ru", car));
-
-
-
-
+      userService.addUser(new User("User1", "Lastname1", "user1@mail.ru", car));
+      userService.addUser(new User("User2", "Lastname2", "user2@mail.ru", car1));
+      userService.addUser(new User("User3", "Lastname3", "user3@mail.ru", car));
+      userService.addUser(new User("User4", "Lastname4", "user4@mail.ru", car));
 
 
       List<User> users = userService.listUsers();
@@ -42,7 +38,6 @@ public class MainApp {
          System.out.println("Car = " + user.getCar());
          System.out.println();
       }
-
       context.close();
    }
 }
