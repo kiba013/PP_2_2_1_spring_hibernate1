@@ -1,5 +1,6 @@
 package hiber.dao;
 
+import hiber.model.Car;
 import hiber.model.User;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,19 +12,40 @@ import java.util.List;
 @Repository
 public class UserDaoImp implements UserDao {
 
-   @Autowired
-   private SessionFactory sessionFactory;
+    @Autowired
+    private SessionFactory sessionFactory;
 
-   @Override
-   public void addUser(User user) {
-      sessionFactory.getCurrentSession().save(user);
-   }
 
-   @Override
-   @SuppressWarnings("unchecked")
-   public List<User> listUsers() {
-      TypedQuery<User> query=sessionFactory.getCurrentSession().createQuery("from User");
-      return query.getResultList();
-   }
+    @Override
+    public void addUser(User user) {
+        sessionFactory.getCurrentSession().save(user);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<User> listUsers() {
+        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User");
+        return query.getResultList();
+    }
+
+    @Override
+    public User findByCar(String model, int series) {
+        TypedQuery<Car> query =
+                sessionFactory.getCurrentSession().createQuery(
+                                "FROM Car WHERE model = :model AND series = :series")
+                        .setParameter("model", model)
+                        .setParameter("series", series);
+        List<Car> findCarList = query.getResultList();
+        if (!findCarList.isEmpty()) {
+            Car findCar = findCarList.get(0);
+            List<User> ListUser = listUsers();
+            User FindUser = ListUser.stream()
+                    .filter(user -> user.getCar().equals(findCar))
+                    .findAny()
+                    .orElse(null);
+            return FindUser;
+        }
+        return null;
+    }
 
 }

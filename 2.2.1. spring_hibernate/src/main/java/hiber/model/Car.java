@@ -1,5 +1,7 @@
 package hiber.model;
 
+
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -8,7 +10,6 @@ import java.util.Objects;
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private Long id;
 
     @Column(name = "model")
@@ -16,6 +17,9 @@ public class Car {
 
     @Column(name = "series")
     private int series;
+
+    @OneToOne(mappedBy = "car")
+    private User user;
 
 
     public Car() {
