@@ -1,6 +1,5 @@
 package hiber.dao;
 
-import hiber.model.Car;
 import hiber.model.User;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
@@ -31,22 +30,15 @@ public class UserDaoImp implements UserDao {
     }
 
     @Override
-    public User findByCar(String model, int series) {
-        TypedQuery<Car> query =
-                sessionFactory.getCurrentSession().createQuery(
-                                "FROM Car WHERE model = :model AND series = :series")
-                        .setParameter("model", model)
-                        .setParameter("series", series);
-        List<Car> findCarList = query.getResultList();
-        if (!findCarList.isEmpty()) {
-            Car findCar = findCarList.get(0);
-            List<User> ListUser = getUserList();
-            User FindUser = ListUser.stream()
-                    .filter(user -> user.getCar().equals(findCar))
-                    .findAny()
-                    .orElse(null);
-            return FindUser;
+    public List<User> findByCar(String model, int series) {
+        TypedQuery<User> query =
+               sessionFactory.getCurrentSession().createQuery(
+                       "From User Where car.model = :model AND car.series = :series")
+                       .setParameter("model", model)
+                       .setParameter("series", series);
+        if(query.getResultList().isEmpty()) {
+            System.out.println("Sorry, Car by model '" + model + "' not found!");
         }
-        return null;
+     return query.getResultList();
     }
 }
