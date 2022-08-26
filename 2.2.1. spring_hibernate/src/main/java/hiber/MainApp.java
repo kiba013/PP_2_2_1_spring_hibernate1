@@ -36,7 +36,7 @@ public class MainApp {
       }
 
 
-      List<User> usersByCar = userService.findByCar("BMW", 735);
+      List<User> usersByCar = userService.findByCar("ho", 75);
       for (User user : usersByCar) {
          System.out.println("User firstname: " + user.getFirstName());
          System.out.println("User lastname: " + user.getLastName());

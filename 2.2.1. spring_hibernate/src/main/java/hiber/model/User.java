@@ -1,7 +1,5 @@
 package hiber.model;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -22,7 +20,7 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @Autowired
+
     @OneToOne(cascade = CascadeType.ALL)
     private Car car;
 

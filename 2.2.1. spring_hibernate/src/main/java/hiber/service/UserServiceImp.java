@@ -28,7 +28,7 @@ public class UserServiceImp implements UserService {
       return userDao.getUserList();
    }
 
-   @Transactional
+   @Transactional(readOnly = true)
    public List<User> findByCar(String model, int series) {
       return userDao.findByCar(model, series);
    }
